@@ -51,8 +51,26 @@ angular
               });
           }
         }
+      })
+      .state('profile', {
+        url: '/profile',
+        templateUrl: 'users/profile.html',
+        controller: 'ProfileCtrl as profileCtrl',
+        resolve: {
+          auth: function ($state, Users, Auth) {
+            return Auth.$requireAuth()
+              .catch(function () {
+                $state.go('home');
+              });
+          },
+          profile: function (Users, Auth) {
+            return Auth.$requireAuth().then(function (authData) {
+              return Users.getProfile(authData.uid).$loaded();
+            });
+          }
+        }
       });
 
     $urlRouterProvider.otherwise('/');
   })
-  .constant('FirebaseUrl', 'https://fuczak-slack.firebaseio.com/');
+  .constant('FirebaseUrl', 'https://fuczak-slack-clone.firebaseio.com/');

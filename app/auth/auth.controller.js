@@ -27,5 +27,5 @@ angular.module('angularfireSlackApp')
           authCtrl.error = error;
         });
     };
-    
+
   });
