@@ -18,7 +18,16 @@ angular
     $stateProvider
       .state('home', {
         url: '/',
-        templateUrl: 'home/home.html'
+        templateUrl: 'home/home.html',
+        resolve: {
+          requireNoAuth: function ($state, Auth) {
+            return Auth.$requireAuth().then(function () {
+              $state.go('channels');
+            }, function () {
+              return;
+            });
+          }
+        }
       })
       .state('login', {
         url: '/login',
