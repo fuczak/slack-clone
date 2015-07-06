@@ -69,6 +69,27 @@ angular
             });
           }
         }
+      })
+      .state('channels', {
+        url: '/channels',
+        resolve: {
+          channels: function (Channels) {
+            return Channels.$loaded();
+          },
+          profile: function($state, Auth, Users) {
+            return Auth.$requireAuth().then(function (auth) {
+              return Users.getProfile(auth.uid).$loaded().then(function (profile) {
+                if (profile.displayName) {
+                  return profile;
+                } else {
+                  $state.go('profile');
+                }
+              });
+            }, function () {
+              $state.go('home');
+            });
+          }
+        }
       });
 
     $urlRouterProvider.otherwise('/');
