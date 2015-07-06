@@ -72,6 +72,8 @@ angular
       })
       .state('channels', {
         url: '/channels',
+        controller: 'ChannelsCtrl as channelsCtrl',
+        templateUrl: 'channels/index.html',
         resolve: {
           channels: function (Channels) {
             return Channels.$loaded();
