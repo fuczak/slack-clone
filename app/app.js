@@ -81,8 +81,8 @@ angular
       })
       .state('channels', {
         url: '/channels',
-        controller: 'ChannelsCtrl as channelsCtrl',
         templateUrl: 'channels/index.html',
+        controller: 'ChannelsCtrl as channelsCtrl',
         resolve: {
           channels: function (Channels) {
             return Channels.$loaded();
@@ -101,6 +101,11 @@ angular
             });
           }
         }
+      })
+      .state('channels.create', {
+        url: '/create',
+        templateUrl: 'channels/create.html',
+        controller: 'ChannelsCtrl as channelsCtrl'
       });
 
     $urlRouterProvider.otherwise('/');
